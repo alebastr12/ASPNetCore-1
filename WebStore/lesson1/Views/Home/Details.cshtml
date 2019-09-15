@@ -1,0 +1,43 @@
+﻿@model lesson1.Models.EmployeeView
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" charset="utf-8" />
+    <link rel="stylesheet" href="~/StyleSheet.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <title>Главная</title>
+</head>
+<body>
+    <a href="/Home/Index"><i class="fas fa-arrow-left">Назад</i></a>
+    
+    <h3>Детали сотрудника:</h3>
+    <table>
+        <tr>
+            <td>ИД</td>
+            <td>@Model.Id</td>
+        </tr>
+        <tr>
+            <td>Фамилия</td>
+            <td>@Model.SurName</td>
+        </tr>
+        <tr>
+            <td>Имя</td>
+            <td>@Model.FirstName</td>
+        </tr>
+        <tr>
+            <td>Отчество</td>
+            <td>@Model.Patronymic</td>
+        </tr>
+        <tr>
+            <td>Дата рождения</td>
+            <td>@Model.DateOfBirth.ToShortDateString()</td>
+        </tr>
+        <tr>
+            <td>Должность</td>
+            <td>@Model.Post</td>
+        </tr>
+    </table>
+</body>
+</html>
+
+

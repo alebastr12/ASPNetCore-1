@@ -1,0 +1,32 @@
+﻿@model IEnumerable<lesson1.Models.EmployeeView>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" charset="utf-8" />
+    <link rel="stylesheet" href="~/StyleSheet.css">
+    <title>Главная</title>
+</head>
+<body>
+    <h3>Список сотрудников:</h3>
+    <table>
+        <tr>
+            <td>ИД</td>
+            <td>Фамилия</td>
+            <td>Имя</td>
+            <td>Отчество</td>
+            <td></td>
+        </tr>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.SurName</td>
+            <td>@item.FirstName</td>
+            <td>@item.Patronymic</td>
+            <td>@Html.ActionLink("Детали", "Details", new { id = item.Id })</td>
+        </tr>
+        }
+    </table>
+</body>
+</html>
+
