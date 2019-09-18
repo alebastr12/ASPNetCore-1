@@ -17,8 +17,10 @@ C:\Users\Алкесандр\source\repos\ASPNetCore-1\WebStore\lesson1\bin\Debug
 C:\Users\Алкесандр\source\repos\ASPNetCore-1\WebStore\lesson1\obj\Debug\netcoreapp2.1\lesson1.TagHelpers.input.cache
 C:\Users\Алкесандр\source\repos\ASPNetCore-1\WebStore\lesson1\obj\Debug\netcoreapp2.1\lesson1.TagHelpers.output.cache
 C:\Users\Алкесандр\source\repos\ASPNetCore-1\WebStore\lesson1\obj\Debug\netcoreapp2.1\lesson1.RazorCoreGenerate.cache
-C:\Users\Алкесандр\source\repos\ASPNetCore-1\WebStore\lesson1\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs
 C:\Users\Алкесандр\source\repos\ASPNetCore-1\WebStore\lesson1\obj\Debug\netcoreapp2.1\lesson1.RazorTargetAssemblyInfo.cs
 C:\Users\Алкесандр\source\repos\ASPNetCore-1\WebStore\lesson1\obj\Debug\netcoreapp2.1\lesson1.Views.pdb
 C:\Users\Алкесандр\source\repos\ASPNetCore-1\WebStore\lesson1\obj\Debug\netcoreapp2.1\lesson1.csproj.CopyComplete
-C:\Users\Алкесандр\source\repos\ASPNetCore-1\WebStore\lesson1\obj\Debug\netcoreapp2.1\Razor\Views\Home\Details.g.cshtml.cs
+C:\Users\Алкесандр\source\repos\ASPNetCore-1\WebStore\lesson1\obj\Debug\netcoreapp2.1\Razor\Views\Employee\Details.g.cshtml.cs
+C:\Users\Алкесандр\source\repos\ASPNetCore-1\WebStore\lesson1\obj\Debug\netcoreapp2.1\Razor\Views\Employee\Index.g.cshtml.cs
+C:\Users\Алкесандр\source\repos\ASPNetCore-1\WebStore\lesson1\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs
+C:\Users\Алкесандр\source\repos\ASPNetCore-1\WebStore\lesson1\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout.g.cshtml.cs
