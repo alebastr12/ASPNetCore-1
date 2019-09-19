@@ -1,12 +1,7 @@
 ﻿@model IEnumerable<lesson1.Models.EmployeeView>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" charset="utf-8" />
-    <link rel="stylesheet" href="~/StyleSheet.css">
-    <title>Главная</title>
-</head>
-<body>
+@{ 
+    ViewBag.Title = "Список сотрудников";
+}
     <h3>Список сотрудников:</h3>
     <table>
         <tr>
@@ -27,6 +22,5 @@
         </tr>
         }
     </table>
-</body>
-</html>
+
 
