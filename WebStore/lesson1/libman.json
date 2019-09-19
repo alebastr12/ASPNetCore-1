@@ -8,7 +8,7 @@
     },
     {
       "library": "jquery@2.2.0",
-      "destination": "wwwroot/jquery/"
+      "destination": "wwwroot/lib/jquery/"
     }
   ]
 }
