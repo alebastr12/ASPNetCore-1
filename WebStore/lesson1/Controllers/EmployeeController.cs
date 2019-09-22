@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using lesson1.Infrastructure.Interfaces;
 using lesson1.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,42 +10,56 @@ namespace lesson1.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly List<EmployeeView> _employeeViews = new List<EmployeeView> {
-            new EmployeeView {
-                Id=1,
-                FirstName="Иван",
-                SurName="Петров",
-                Patronymic="Вячеславович",
-                DateOfBirth=DateTime.Parse("10.12.1956"),
-                Post="Директор"
-            },
-            new EmployeeView
-            {
-                Id = 2,
-                FirstName = "Александр",
-                SurName = "Иванов",
-                Patronymic = "Петрович",
-                DateOfBirth = DateTime.Parse("11.02.1959"),
-                Post = "Уборщик"
-            },
-            new EmployeeView
-            {
-                Id = 3,
-                FirstName = "Виктория",
-                SurName = "Сидоркина",
-                Patronymic = "Альбертовна",
-                DateOfBirth = DateTime.Parse("08.03.1989"),
-                Post = "Секретарша"
-            }
-        };
+        private readonly IEmployeeService _employeeService;
+        public EmployeeController(IEmployeeService employeeService)
+        {
+            _employeeService = employeeService;
+        }
         public IActionResult Index()
         {
             //return Content("Привет изконтроллера!");
-            return View(_employeeViews);
+            return View(_employeeService.GetAll());
         }
-        public IActionResult Details(int? id)
+        public IActionResult Details(int id)
         {
-            return View(_employeeViews.FirstOrDefault(e => e.Id == id));
+            return View(_employeeService.GetById(id));
+        }
+        public IActionResult Edit(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return View(new EmployeeView());
+            }
+            var emp = _employeeService.GetById(id.Value);
+            if (emp is null)
+                return NotFound();
+            return View(emp);
+        }
+        [HttpPost]
+        public IActionResult Edit(EmployeeView model)
+        {
+            if (model.Id > 0)
+            {
+                var dbItem = _employeeService.GetById(model.Id);
+                if (dbItem is null)
+                    return NotFound();
+                dbItem.FirstName = model.FirstName;
+                dbItem.SurName = model.SurName;
+                dbItem.Patronymic = model.Patronymic;
+                dbItem.DateOfBirth = model.DateOfBirth;
+                dbItem.Post = model.Post;
+            }
+            else
+            {
+                _employeeService.AddNew(model);
+            }
+            _employeeService.Commit();
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Delete(int id)
+        {
+            _employeeService.Delete(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
