@@ -10,6 +10,7 @@ namespace lesson1.Controllers
 {
     public class EmployeeController : Controller
     {
+        public string ErrorString { get; set; }
         private readonly IEmployeeService _employeeService;
         public EmployeeController(IEmployeeService employeeService)
         {
@@ -38,6 +39,15 @@ namespace lesson1.Controllers
         [HttpPost]
         public IActionResult Edit(EmployeeView model)
         {
+            model.ErrorString = "";
+            if (string.IsNullOrEmpty(model.FirstName))
+                model.ErrorString += "Введите имя. ";
+            if (string.IsNullOrEmpty(model.SurName))
+                model.ErrorString += "Введите фамилию. ";
+            if (string.IsNullOrEmpty(model.Post))
+                model.ErrorString += "Введите должность. ";
+            if (!string.IsNullOrEmpty(model.ErrorString))
+                return View(model);
             if (model.Id > 0)
             {
                 var dbItem = _employeeService.GetById(model.Id);

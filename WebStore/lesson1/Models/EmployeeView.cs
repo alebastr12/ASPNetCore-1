@@ -13,5 +13,6 @@ namespace lesson1.Models
         public string Patronymic { get; set; }
         public string Post { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public string ErrorString { get; set; }
     }
 }
