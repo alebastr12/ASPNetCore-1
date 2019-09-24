@@ -39,14 +39,10 @@ namespace lesson1.Controllers
         [HttpPost]
         public IActionResult Edit(EmployeeView model)
         {
-            model.ErrorString = "";
-            if (string.IsNullOrEmpty(model.FirstName))
-                model.ErrorString += "Введите имя. ";
-            if (string.IsNullOrEmpty(model.SurName))
-                model.ErrorString += "Введите фамилию. ";
-            if (string.IsNullOrEmpty(model.Post))
-                model.ErrorString += "Введите должность. ";
-            if (!string.IsNullOrEmpty(model.ErrorString))
+            var Age = (DateTime.Now.Year - model.DateOfBirth.Year);
+            if (Age < 18 | Age > 100)
+                ModelState.AddModelError("DateOfBirth", $"Возраст должен быть больше 18 лет и меньшк 100 лет {Age}"); ;
+            if (!ModelState.IsValid)
                 return View(model);
             if (model.Id > 0)
             {
