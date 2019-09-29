@@ -3,11 +3,10 @@
     ViewBag.Title = "Shop";
 }
 
-<section id="advertisement">
-    <div class="container">
+@model lesson1.Models.CatalogViewModel
+    @*<section id="advertisement">
         <img src="~/images/shop/advertisement.jpg" alt="" />
-    </div>
-</section>
+    </section>*@
 
 <section>
     <div class="container">
@@ -17,7 +16,13 @@
             </div>
 
             <div class="col-sm-9 padding-right">
-                @await  Html.PartialAsync("Partial/_FeaturesItems")
+                @await Html.PartialAsync("Partial/_ProductItems", Model.Products)
+                <ul class="pagination">
+                    <li class="active"><a href="">1</a></li>
+                    <li><a href="">2</a></li>
+                    <li><a href="">3</a></li>
+                    <li><a href="">&raquo;</a></li>
+                </ul>
             </div>
         </div>
     </div>
