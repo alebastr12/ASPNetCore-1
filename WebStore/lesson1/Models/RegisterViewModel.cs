@@ -8,15 +8,15 @@ namespace lesson1.Models
 {
     public class RegisterViewModel
     {
-        [Required]
+        [Required, Display(Prompt = "Имя пользователя")]
         public string UserName { get; set; }
-        [Required,DataType(DataType.EmailAddress)]
+        [Required,DataType(DataType.EmailAddress), Display(Prompt = "Адрес электронной почты")]
         public string Email { get; set; }
-        [DataType(DataType.PhoneNumber)]
+        [DataType(DataType.PhoneNumber), Display(Prompt = "Номер телефона")]
         public string PhoneNumber { get; set; }
-        [Required,DataType(DataType.Password)]
+        [Required,DataType(DataType.Password), Display(Prompt = "Пароль")]
         public string Password { get; set; }
-        [Required, DataType(DataType.Password), Compare(nameof(Password))]
+        [Required, DataType(DataType.Password), Compare(nameof(Password)), Display(Prompt = "Подтверждение пароля")]
         public string ConfirmPassword { get; set; }
     }
 }
