@@ -7,10 +7,12 @@ using lesson1.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebStore.DAL;
+using WebStore.Domain.Entitys;
 
 namespace lesson1
 {
@@ -28,6 +30,20 @@ namespace lesson1
         {
             services.AddMvc();
             services.AddDbContext<WebStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<WebStoreContext>()
+                .AddDefaultTokenProviders();
+            services.Configure<IdentityOptions>(o =>
+            {
+                o.Password.RequiredLength = 4;
+                o.Password.RequireDigit = false;
+                o.Password.RequireLowercase = false;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequireUppercase = false;
+            });
+            services.ConfigureApplicationCookie(o => TimeSpan.FromDays(10));
+
             services.AddSingleton<IEmployeeService, EmployeeService>();
             services.AddScoped<IProductService, SqlProductService>();
         }
@@ -40,6 +56,7 @@ namespace lesson1
                 app.UseDeveloperExceptionPage();
             }
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseMvc(routes => routes.MapRoute(
                 name: "default",
                 template: "{controller=Home}/{action=Index}/{id?}"));
