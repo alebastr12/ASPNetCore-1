@@ -13,6 +13,7 @@ namespace lesson1.Controllers
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        private string _returnUrl;
 
         public AuthenticationController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
@@ -22,7 +23,18 @@ namespace lesson1.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View(new LoginViewModel());
+            string returnUrl = null;
+            string url = Request.Headers["Referer"].ToString();
+            string site = Request.Headers["Host"];
+            int index = url.IndexOf(site);
+            if (index>-1)
+                returnUrl = url.Substring(index + site.Count());
+            
+            if (User.Identity.IsAuthenticated)
+            {
+                return Redirect(returnUrl);
+            }
+            return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
@@ -41,6 +53,7 @@ namespace lesson1.Controllers
             {
                 return Redirect(model.ReturnUrl);
             }
+            
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
@@ -81,5 +94,6 @@ namespace lesson1.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
     }
 }

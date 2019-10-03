@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<div class="col-sm-8">
+    <div class="shop-menu pull-right">
+        <ul class="nav navbar-nav">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li><a href="#"><i class="fa fa-user"></i> @User.Identity.Name</a></li>
+                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+                <li><a asp-controller="Home" asp-action="Checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                <li><a asp-controller="Home" asp-action="Cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                <li>
+                    <form method="post" asp-controller="Authentication" asp-action="Logout" asp-antiforgery="true">
+                        <input type="submit" value="Выход" class="btn navbar-btn" />
+                    </form>
+                </li>
+            }
+            else
+            {
+                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+                <li><a asp-controller="Home" asp-action="Checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                <li><a asp-controller="Home" asp-action="Cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                <li><a asp-controller="Authentication" asp-action="Login"><i class="fa fa-lock"></i> Login</a></li>
+                <li><a asp-controller="Authentication" asp-action="Register"><i class="fa fa-lock"></i> Registration</a></li>
+            }
+
+
+        </ul>
+    </div>
+</div>
