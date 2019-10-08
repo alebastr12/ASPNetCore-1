@@ -1,4 +1,5 @@
 ﻿using lesson1.Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,14 @@ namespace lesson1.Infrastructure.Services
         public IEnumerable<Category> GetCategories()
         {
             return _context.Categories.ToList();
+        }
+
+        public Product GetProductById(int id)
+        {
+            return _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Brand)
+                .FirstOrDefault(p => p.Id == id);
         }
 
         public IEnumerable<Product> GetProducts(ProductFilter filter)
