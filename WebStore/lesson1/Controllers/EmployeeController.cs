@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using lesson1.Infrastructure.Interfaces;
 using lesson1.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lesson1.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         public string ErrorString { get; set; }
@@ -16,15 +18,18 @@ namespace lesson1.Controllers
         {
             _employeeService = employeeService;
         }
+        [AllowAnonymous]
         public IActionResult Index()
         {
             //return Content("Привет изконтроллера!");
             return View(_employeeService.GetAll());
         }
+
         public IActionResult Details(int id)
         {
             return View(_employeeService.GetById(id));
         }
+        [Authorize(Roles ="Administrator")]
         public IActionResult Edit(int? id)
         {
             if (!id.HasValue)
@@ -37,6 +42,7 @@ namespace lesson1.Controllers
             return View(emp);
         }
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(EmployeeView model)
         {
             var Age = (DateTime.Now.Year - model.DateOfBirth.Year);
@@ -62,6 +68,7 @@ namespace lesson1.Controllers
             _employeeService.Commit();
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = "Administrator")]
         public IActionResult Delete(int id)
         {
             _employeeService.Delete(id);

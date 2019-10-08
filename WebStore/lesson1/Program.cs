@@ -26,7 +26,7 @@ namespace lesson1
                 {
                     WebStoreContext context = services.GetRequiredService<WebStoreContext>();
                     DbInit.Initialize(context);
-
+                    DbInit.InitializeUser(services);
                 }
                 catch (Exception ex)
                 {

@@ -9,13 +9,13 @@ using lesson1.Models;
 
 namespace lesson1.Controllers
 {
-    public class AuthenticationController : Controller
+    public class AccountController : Controller
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private string _returnUrl;
 
-        public AuthenticationController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -75,9 +75,9 @@ namespace lesson1.Controllers
             }
             var newUser = new User()
             {
-                UserName=model.UserName,
-                Email=model.Email,
-                PhoneNumber=model.PhoneNumber
+                UserName= model.UserName,
+                Email= model.Email,
+                PhoneNumber= model.PhoneNumber
             };
             var createResult = await userManager.CreateAsync(newUser, model.Password);
             if (!createResult.Succeeded)
