@@ -163,6 +163,50 @@ namespace WebStore.DAL.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("WebStore.Domain.Entitys.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address");
+
+                    b.Property<DateTime>("DateTime");
+
+                    b.Property<string>("Phone");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("WebStore.Domain.Entitys.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("OrderId");
+
+                    b.Property<int?>("ProductId");
+
+                    b.Property<int>("Quantity");
+
+                    b.Property<decimal>("TotalPrice");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderItems");
+                });
+
             modelBuilder.Entity("WebStore.Domain.Entitys.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -291,6 +335,24 @@ namespace WebStore.DAL.Migrations
                     b.HasOne("WebStore.Domain.Entitys.Category", "ParentCategory")
                         .WithMany()
                         .HasForeignKey("ParentId");
+                });
+
+            modelBuilder.Entity("WebStore.Domain.Entitys.Order", b =>
+                {
+                    b.HasOne("WebStore.Domain.Entitys.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("WebStore.Domain.Entitys.OrderItem", b =>
+                {
+                    b.HasOne("WebStore.Domain.Entitys.Order", "Order")
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId");
+
+                    b.HasOne("WebStore.Domain.Entitys.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("WebStore.Domain.Entitys.Product", b =>

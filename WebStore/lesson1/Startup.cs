@@ -47,6 +47,7 @@ namespace lesson1
             services.AddSingleton<IEmployeeService, EmployeeService>();
             services.AddScoped<IProductService, SqlProductService>();
             services.AddScoped<ICartService, CookieCartService>();
+            services.AddScoped<IOrderService, SqlOrderService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
