@@ -397,6 +397,22 @@ namespace lesson1.Infrastructure.Services
                 },
             };
         }
+
+        public void AddProduct(Product item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Commit()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int? id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Brand> GetBrands()
         {
             return _brands;

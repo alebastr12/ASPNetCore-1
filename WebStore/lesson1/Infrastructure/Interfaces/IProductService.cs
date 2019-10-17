@@ -13,5 +13,8 @@ namespace lesson1.Infrastructure.Interfaces
         IEnumerable<Brand> GetBrands();
         IEnumerable<Product> GetProducts(ProductFilter filter);
         Product GetProductById(int id);
+        void Delete(int? id);
+        void AddProduct(Product item);
+        void Commit();
     }
 }

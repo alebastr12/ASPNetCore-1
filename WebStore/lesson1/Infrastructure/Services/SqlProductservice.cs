@@ -19,6 +19,31 @@ namespace lesson1.Infrastructure.Services
             _context = context;
         }
 
+        public void AddProduct(Product item)
+        {
+            if (item is null)
+                return;
+            _context.Products.Add(item);
+            
+        }
+
+        public void Commit()
+        {
+            _context.SaveChanges();
+        }
+
+        public void Delete(int? id)
+        {
+            if (id.HasValue)
+            {
+                var prod = GetProductById(id.Value);
+                if (prod is null)
+                    return;
+                _context.Products.Remove(prod);
+                
+            }
+        }
+
         public IEnumerable<Brand> GetBrands()
         {
             return _context.Brands.ToList();
@@ -39,7 +64,7 @@ namespace lesson1.Infrastructure.Services
 
         public IEnumerable<Product> GetProducts(ProductFilter filter)
         {
-            var dbItems = _context.Products.AsQueryable();
+            var dbItems = _context.Products.Include(p=>p.Category).Include(p=>p.Brand).AsQueryable();
             if (filter.BrandId.HasValue)
             {
                 dbItems = dbItems.Where(p => p.BrandId == filter.BrandId);
@@ -47,6 +72,10 @@ namespace lesson1.Infrastructure.Services
             if (filter.CategoryId.HasValue)
             {
                 dbItems = dbItems.Where(p => p.CategoryId == filter.CategoryId);
+            }
+            if (!string.IsNullOrWhiteSpace(filter.Name))
+            {
+                dbItems = dbItems.Where(p => p.Name.Contains(filter.Name));
             }
             return dbItems.ToList();
         }
