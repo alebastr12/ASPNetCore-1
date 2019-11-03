@@ -21,9 +21,9 @@ namespace lesson1.Areas.Admin.Controllers
         private readonly IProductService productService;
         private readonly List<SelectListItem> brandList= new List<SelectListItem>();
         private readonly List<SelectListItem> categoryList = new List<SelectListItem>();
-        private readonly IHostingEnvironment _appEnvironment;
+        private readonly IWebHostEnvironment _appEnvironment;
 
-        public HomeController(IProductService productService, IHostingEnvironment appEnvironment)
+        public HomeController(IProductService productService, IWebHostEnvironment appEnvironment)
         {
             this._appEnvironment = appEnvironment;
             this.productService = productService;

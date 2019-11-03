@@ -8,7 +8,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+
+//using MySql.Data.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebStore.DAL;
@@ -28,9 +32,11 @@ namespace lesson1
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-            services.AddDbContext<WebStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            
+            //services.AddMvc(e => new MvcOptions { EnableEndpointRouting = false });
+            services.AddRazorPages();
+            services.AddDbContextPool<WebStoreContext>(options => options.UseMySql(Configuration.GetConnectionString("GCloudConnection")));
+            //services.AddDbContext<WebStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+ 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<WebStoreContext>()
                 .AddDefaultTokenProviders();
@@ -52,24 +58,32 @@ namespace lesson1
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseRouting();
             app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseMvc(routes =>
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "areas",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            }
-            );
+                endpoints.MapControllerRoute("areas", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            });
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "areas",
+            //        template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=Home}/{action=Index}/{id?}");
+            //}
+            //);
 
             //app.Run(async (context) =>
             //{

@@ -13,7 +13,7 @@ namespace lesson1.Controllers
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
-        private string _returnUrl;
+        
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
