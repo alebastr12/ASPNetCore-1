@@ -93,10 +93,10 @@ namespace WebStore.DAL.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(nullable: false),
-                    ProviderKey = table.Column<string>(nullable: false),
-                    ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
+                    LoginProvider = table.Column<string>(maxLength: 256, nullable: false),
+                    ProviderKey = table.Column<string>(maxLength: 256, nullable: false),
+                    ProviderDisplayName = table.Column<string>(maxLength: 256, nullable: true),
+                    UserId = table.Column<string>(maxLength: 256, nullable: false)
                 },
                 constraints: table =>
                 {

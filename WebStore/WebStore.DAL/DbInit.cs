@@ -16,7 +16,7 @@ namespace WebStore.DAL
         {
             context.Database.EnsureCreated();
             // Look for any products.
-            if (context.Products.Any())
+            if (context.Products.Count()>0)
             {
                 return;   // DB had already been seeded
             }
@@ -242,9 +242,9 @@ namespace WebStore.DAL
                     context.Categories.Add(section);
                 }
 
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Categories] ON");
+                //context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Categories] ON");
                 context.SaveChanges(); // применяем изменения в БД
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Categories] OFF");
+                //context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Categories] OFF");
                 trans.Commit();
             }
             var brands = new List<Brand>()
@@ -299,9 +299,9 @@ namespace WebStore.DAL
                     context.Brands.Add(brand);
                 }
 
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Brands] ON");
+                //context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Brands] ON");
                 context.SaveChanges(); // применяем изменения в БД
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Brands] OFF");
+                //context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Brands] OFF");
                 trans.Commit();
             }
             var products = new List<Product>()
@@ -433,9 +433,9 @@ namespace WebStore.DAL
                 {
                     context.Products.Add(product);
                 }
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Products] ON");
+                //context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Products] ON");
                 context.SaveChanges(); // применяем изменения в БД
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Products] OFF");
+                //context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Products] OFF");
                 trans.Commit();
             }
 
