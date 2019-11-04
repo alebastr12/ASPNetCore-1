@@ -13,6 +13,7 @@ namespace WebStore.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Phone = table.Column<string>(nullable: true),
                     DateTime = table.Column<DateTime>(nullable: false),
@@ -35,6 +36,7 @@ namespace WebStore.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     TotalPrice = table.Column<decimal>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
